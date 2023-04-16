@@ -1,1 +1,59 @@
 <!-- Start writing your project code in this file! -->
+
+<input id="taskinput" type="text">
+
+<button onclick="getTask()">Add to list</button>
+
+<div id="lista"></div>
+
+
+<script>
+
+var taskList = []; 
+
+// The function below collects the information from the user input in the text box and stores it in an array.
+function getTask() {
+  
+  var task = document.getElementById("taskinput");
+
+// The user receives an alert if they press the button without having entered anything in the textbox.
+if (task.value.length < 1) {
+
+alert("Please enter a task.");
+
+}
+
+else {  
+
+  console.log(task.value);  
+
+  taskList.push(task.value);  
+  
+  console.log(taskList);  
+  
+  refreshList();
+  
+  
+  // Empties the text box after each entry. 
+  task.value = "";   
+  
+  }
+  
+}
+
+// The function below dispalys and updates the list for each task entered.
+function refreshList() {
+
+// Create a temporary local variable to remember the text that should be put inside the element with ID "lista".
+var listItems = "";  
+  
+/* This part loops through the taskList array. 
+Each time it loops it adds a checkbox and a label for each task to the listItems variable as a string. */
+  for (var taskCounter = 0; taskCounter < taskList.length; taskCounter++) {  
+    listItems += "<div><input type='checkbox' id='task_" + taskCounter + "'><label for='task_" + taskCounter + "'>" + taskList[taskCounter] + "</label></div>";
+  }
+  // Replaces the content of the element "lista" with the content of the variable listItems.
+  document.getElementById("lista").innerHTML=listItems;  
+}
+
+</script>
