@@ -20,4 +20,8 @@
 2023-04-15 17:00 Worked for 3 hours.
 
   - Added the rest of the code that is now available in the first commit in the index file.
+
+2023-04-27 16:45 Worked for 2,5 hours.
+
+  - Added a part of the code that detects if a checkbox has been checked and moves the belonging task to a list that displays the completed tasks.
   
