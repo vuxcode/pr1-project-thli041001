@@ -1,5 +1,4 @@
 <!-- Start writing your project code in this file! -->
-
 <input id="taskinput" type="text">
 
 <button onclick="getTask()">Add to list</button>
@@ -55,10 +54,10 @@ function refreshList() {
     "<label for='task_" + taskCounter + "'>" + taskList[taskCounter] + "</label></div>";
   }
    // This part loops through the taskListCompleted array in the same way it does for taskList.
-  for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {  
-    listItemsCompleted += 
-	"<div><input type='checkbox' id='task_"+ taskCounter + "' onchange='moveCompletedtask("+ taskCounter +")' >" +
-    "<label for='task_" + taskCounter + "'>" + taskListCompleted[taskCounter] + "</label></div>";
+for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {
+  listItemsCompleted +=
+  "<div><input type='checkbox' id='taskCompleted_" + taskCounter + "' onchange='moveUnCompletedtask(" + taskCounter + ")' checked>" +
+  "<label for='taskCompleted_" + taskCounter + "'>" + taskListCompleted[taskCounter] + "</label></div>";
   }
   
   // When the loop is complete, we replace the content of the element "list" with the content of the variable listItems and listItemsCompleted.
@@ -78,6 +77,25 @@ function moveCompletedtask() {
 		  taskListCompleted.push(taskList[taskCounter]);  
 		  
 		  taskList.splice(taskCounter,1);
+		  
+		  refreshList();
+	  }
+	  
+	}
+}
+
+//This function checks if a checkbox has been unchecked and removes it's beloning task from taskListCompleted to taskList.
+function moveUnCompletedtask() {
+
+	for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {  
+
+	  var checkbox = document.getElementById("taskCompleted_" + taskCounter); 
+	  
+	  if (checkbox.checked === false) {
+		  
+		  taskList.push(taskListCompleted[taskCounter]);  
+		  
+		  taskListCompleted.splice(taskCounter,1);
 		  
 		  refreshList();
 	  }
