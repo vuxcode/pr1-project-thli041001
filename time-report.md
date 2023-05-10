@@ -25,3 +25,6 @@
 
   - Added a part of the code that detects if a checkbox has been checked and moves the belonging task to a list that displays the completed tasks.
   
+2023-05-10 18:00 Worked for about 3 hours.
+
+  - Added the possibility to move the tasks between the two lists, and the checkboxes are checked for the completed tasks and unchecked for the uncompleted ones.
