@@ -28,3 +28,7 @@
 2023-05-10 18:00 Worked for about 3 hours.
 
   - Added the possibility to move the tasks between the two lists, and the checkboxes are checked for the completed tasks and unchecked for the uncompleted ones.
+  
+2023-05-28 18:30 Worked for about 3 hours.
+
+  - Added the possibility to remove tasks completely from both lists.
