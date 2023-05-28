@@ -19,7 +19,8 @@ function getTask() {
   
   var task = document.getElementById("taskinput");
 
-// The user receives an alert if they press the button without having entered anything in the textbox.
+/* If the user has input a value in the textbox it stores the value in the taskList array. 
+If the user has entered nothing (task.value.length < 0) nothing will happen. */
 if (task.value.length > 0)  {
 
   console.log(task.value);  
@@ -41,66 +42,79 @@ if (task.value.length > 0)  {
 // The function below displays and updates the list for each task entered.
 function refreshList() {
 
-	// Create a temporary local variable to remember the text that should be put inside the element with ID "lista".
-	var listItems = "TO DO";  
-	var listItemsCompleted = "COMPLETED TASKS";  
-	  
-	/* This part loops through the taskList array. 
+// Creates a temporary local variable to remember the text that should be put inside the element with ID "list" and "listCompleted".
+  var listItems = "TO DO";  
+  var listItemsCompleted = "COMPLETED TASKS"; 
+  
+  
+  /* This part loops through the taskList array. 
 	Each time it loops it adds a checkbox and a label for each task to the listItems variable as a string.
 	If a checkbox is changed it will also run the function moveCompletedtask. */
   for (var taskCounter = 0; taskCounter < taskList.length; taskCounter++) {  
     listItems += 
-	"<div><input type='checkbox' id='task_"+ taskCounter + "' onchange='moveCompletedtask("+ taskCounter +")' >" +
-    "<label for='task_" + taskCounter + "'>" + taskList[taskCounter] + "</label></div>";
-  }
-   // This part loops through the taskListCompleted array in the same way it does for taskList.
-for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {
-  listItemsCompleted +=
-  "<div><input type='checkbox' id='taskCompleted_" + taskCounter + "' onchange='moveUnCompletedtask(" + taskCounter + ")' checked>" +
-  "<label for='taskCompleted_" + taskCounter + "'>" + taskListCompleted[taskCounter] + "</label></div>";
+      "<div><input type='checkbox' id='task_"+ taskCounter + "' onchange='moveCompletedtask("+ taskCounter +")' >" +
+      "<label for='task_" + taskCounter + "'>" + taskList[taskCounter] + "</label>" + 
+      "<button onclick='removeTask("+ taskCounter +")'>Remove</button></div>";
+	  
   }
   
-  // When the loop is complete, we replace the content of the element "list" with the content of the variable listItems and listItemsCompleted.
+ // This part loops through the taskListCompleted array in the same way it does for taskList.  
+  for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {
+    listItemsCompleted +=
+      "<div><input type='checkbox' id='taskCompleted_" + taskCounter + "' onchange='moveUnCompletedtask(" + taskCounter + ")' checked>" +
+      "<label for='taskCompleted_" + taskCounter + "'>" + taskListCompleted[taskCounter] + "</label>" + 
+      "<button onclick='removeCompletedTask("+ taskCounter +")'>Remove</button></div>";
+  }
+  
+   // When the loop is complete, the content of the element "list" and "listCompleted" is replaced with the content of the variable listItems and listItemsCompleted.   
   document.getElementById("list").innerHTML=listItems;  
   document.getElementById("listCompleted").innerHTML=listItemsCompleted; 
 }
 
-//This function checks if a checkbox has been checked and removes it's belonging task from taskList and adds it to taskListCompleted.
-function moveCompletedtask() {
+// This function moves a task from the "TO DO" list to the "COMPLETED TASKS" list if the task's belonging checkbox is checked.
+function moveCompletedtask(taskCounter) {
 
-	for (var taskCounter = 0; taskCounter < taskList.length; taskCounter++) {  
-
-	  var checkbox = document.getElementById("task_" + taskCounter); 
-	  
-	  if (checkbox.checked === true) {
-		  
-		  taskListCompleted.push(taskList[taskCounter]);  
-		  
-		  taskList.splice(taskCounter,1);
-		  
-		  refreshList();
-	  }
-	  
-	}
+  var checkbox = document.getElementById("task_" + taskCounter); 
+  
+  if (checkbox.checked === true) {
+  
+    taskListCompleted.push(taskList[taskCounter]);  
+    taskList.splice(taskCounter,1);
+    refreshList();
+	
+  }
 }
 
-//This function checks if a checkbox has been unchecked and removes it's beloning task from taskListCompleted to taskList.
-function moveUnCompletedtask() {
+// This function does the same as the previous function, except it moves tasks from the "COMPLETED TASKS" to the "TO DO" list.
+function moveUnCompletedtask(taskCounter) {
 
-	for (var taskCounter = 0; taskCounter < taskListCompleted.length; taskCounter++) {  
+  var checkbox = document.getElementById("taskCompleted_" + taskCounter); 
+  
+  if (checkbox.checked === false) {
+  
+    taskList.push(taskListCompleted[taskCounter]);  
+    taskListCompleted.splice(taskCounter,1);
+    refreshList();
+	
+  }
+}
 
-	  var checkbox = document.getElementById("taskCompleted_" + taskCounter); 
-	  
-	  if (checkbox.checked === false) {
-		  
-		  taskList.push(taskListCompleted[taskCounter]);  
-		  
-		  taskListCompleted.splice(taskCounter,1);
-		  
-		  refreshList();
-	  }
-	  
-	}
+// This function removes a task from the "TO DO" list when the user clicks the "Remove" button belonging to the task.
+function removeTask(taskCounter) {
+
+  taskList.splice(taskCounter, 1); 
+  
+  refreshList();
+  
+}
+
+// This function does the same as the avbove for the "COMPLETED TASKS" list.
+function removeCompletedTask(taskCounter) {
+
+  taskListCompleted.splice(taskCounter, 1); 
+  
+  refreshList();
+  
 }
 
 </script>
